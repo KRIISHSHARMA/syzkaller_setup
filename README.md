@@ -1,11 +1,11 @@
-## Install Prerequisites
+# Install Prerequisites
 
 ```
 sudo apt update
 sudo apt install make gcc flex bison libncurses-dev libelf-dev libssl-dev
 ```
 
-## Kernel
+# Kernel
 
 ``` bash
 git clone --branch v6.2 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
@@ -59,7 +59,7 @@ sudo reboot
 
 # Building syzkaller
 
-- Get GO
+- Install GO
 
 ```
 wget https://dl.google.com/go/go1.23.6.linux-amd64.tar.gz
@@ -68,7 +68,7 @@ export GOROOT=`pwd`/go
 export PATH=$GOROOT/bin:$PATH
 ```
 
-- download and build syzkaller:
+- Download and build syzkaller:
 
 ```
 git clone https://github.com/google/syzkaller
@@ -123,6 +123,7 @@ qemu-system-x86_64 \
 	-pidfile vm.pid \
 	2>&1 | tee vm.log
 ```
+
 > [!CAUTION]
 > Make sure path are correct for kernel and drive flags 
 
@@ -148,8 +149,8 @@ syzkaller login:
     "http": "127.0.0.1:56741",
     "workdir": "/home/ubuntu/syzkaller/workdir",
     "kernel_obj": "/home/ubuntu/linux",
-    "image": "/bullseye.img",
-    "sshkey": "/bullseye.id_rsa",
+    "image": "/home/ubuntu/Image/bullseye.img",
+    "sshkey": "/home/ubuntu/Image/bullseye.id_rsa",
     "ssh_user": "root",
     "syzkaller": "/home/ubuntu/syzkaller",
     "procs": 8,
@@ -183,7 +184,7 @@ mkdir workdir
 > [!NOTE]
 > If you get Load key "/bullseye.id_rsa": Permission denied:
 > Make sure the SSH private key has correct permissions:
-> `chmod 600 /bullseye.id_rsa`
+> `chmod 600 /home/ubuntu/Image/bullseye.id_rsa`
 
 
 - you can also use `debug` if you face some issue in the deployment
