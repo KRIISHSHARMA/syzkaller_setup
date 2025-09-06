@@ -165,13 +165,26 @@ syzkaller login:
 
 ```
 
-> [!NOTE]
-> Again Due to KVM issue i have used `qemu_args": "-cpu qemu64"`
-
 ```
 mkdir workdir
 ./bin/syz-manager -config=vm.cfg
 ```
+
+> [!NOTE]
+> If you get failed to read from qemu: EOF error:
+> Check your kernel boot arguments and make sure console=ttyS0 root=/dev/sda is passed.
+> Ensure the image path is correct and not duplicated in qemu_args.
+
+> [!NOTE]
+> If you get Could not access KVM kernel module: No such file or directory:
+> This occurs if running on a VM without nested KVM support.
+> Remove -enable-kvm -cpu host flags by setting "qemu_args": "-cpu qemu64" in your syzkaller config.
+
+> [!NOTE]
+> If you get Load key "/bullseye.id_rsa": Permission denied:
+> Make sure the SSH private key has correct permissions:
+> `chmod 600 /bullseye.id_rsa`
+
 
 - you can also use `debug` if you face some issue in the deployment
 - If there is no error you would be able to access manager status with your web browser at 127.0.0.1:56741 . OR if you are running on a vm just port foraward it to your localhost `ssh -L 56741:127.0.0.1:56741 user@<ip>`
